@@ -5,7 +5,7 @@ authors:
   - Jacob Creech (Solana Foundation)
 category: Meta
 type: Meta
-status: Draft
+status: Accepted
 created: 2022-10-18
 ---
 
