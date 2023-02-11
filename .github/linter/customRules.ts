@@ -6,6 +6,19 @@ export const enforceHeaderStructure = {
   description: "Proposal header structure should follow template",
   tags: ["structure"],
   function: function rule(params: RuleParams, onError: RuleOnError) {
+    const string = params.frontMatterLines
+    .join("\n")
+    .trim()
+    .replace(/^-*$/gm, "")
+
+    const frontMatter: any = yaml.load(string)
+    if (!frontMatter) return
+
+    const category: string = frontMatter.category
+    if (!category) return
+
+    if (["Meta"].includes(category)) return
+
     const filtered = params.tokens.filter(function filterToken(token) {
       return (
         token.type === "heading_open" &&
@@ -46,7 +59,6 @@ const expectedHeadings = [
   "## Summary",
   "## Motivation",
   "## Alternatives Considered",
-  "## New Terminology",
   "## Detailed Design",
   "## Impact",
   "## Security Considerations",
