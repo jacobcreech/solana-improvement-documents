@@ -11,6 +11,8 @@ import {
 } from "./customRules"
 import fs from "fs"
 import path from "path"
+const core = require('@actions/core');
+
 
 async function main() {
   const dir = path.join(__dirname, "../../proposals")
@@ -127,6 +129,13 @@ async function main() {
     ],
   })
   console.log(linted)
+  let errorCount = 0
+  for (let lint in linted) {
+    errorCount += linted[lint].length
+  }
+  if (errorCount > 0) {
+    throw new Error(JSON.stringify(linted))
+  }
 }
 
 main()
@@ -135,6 +144,6 @@ main()
     process.exit(0)
   })
   .catch((error) => {
-    console.log(error)
+    core.setFailed(error)
     process.exit(1)
   })
