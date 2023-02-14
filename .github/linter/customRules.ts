@@ -30,7 +30,7 @@ export const enforceHeaderStructure = {
 
     while (index < expectedHeadings.length) {
       let token = filtered[index]
-      if (!expectedHeadings[index].includes(token.line)) {
+      if (!expectedHeadings.includes(token.line)) {
         onError({
           lineNumber: token.lineNumber,
           detail: `Expected heading \`${expectedHeadings[index]}\` and instead got \`${token.line}\`. Please follow the structure outlined in the Proposal Template.`,
